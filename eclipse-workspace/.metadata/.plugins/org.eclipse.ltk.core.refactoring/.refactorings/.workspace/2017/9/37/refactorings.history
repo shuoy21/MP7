@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;CS196_FA17_Lecture_Notes.git&apos;" deleteContents="false" description="Delete resource &apos;CS196_FA17_Lecture_Notes.git&apos;" element1="/CS196_FA17_Lecture_Notes.git" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1505169928631"/>
+</session>

@@ -1,0 +1,64 @@
+import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+
+
+
+public class KeyRecorder extends JFrame implements KeyListener{
+	
+	private static final long serialVersionUID = 1L;
+	
+	JTextField textField = new JTextField(10); 
+	JLabel label = new JLabel();
+	
+	
+	public KeyRecorder() {
+
+		//addKeyListener(this);
+		setVisible(true);
+		setTitle("MP7");
+		setSize(200, 200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		label.setText("a");
+		textField.add(label,BorderLayout.CENTER);
+		label.requestFocus(true);
+		label.setFocusable(true);
+		add(textField,BorderLayout.CENTER);
+		add(label,BorderLayout.CENTER);
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getID() == KeyEvent.KEY_TYPED) {
+			label.setText( e.getKeyChar());
+		}
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void main(String args[]) {
+		KeyRecorder obj = new KeyRecorder();
+	}
+	
+}

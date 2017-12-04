@@ -1,0 +1,4 @@
+Name:         SHUO
+Date of Birth:           01
+Tuition:      1235.00
+netID:          663

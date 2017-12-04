@@ -1,0 +1,7 @@
+
+public class Dice {
+	private int value;
+	public Dice() {
+		value = (Math)(Math.random() * 6 + 1);
+	}
+}

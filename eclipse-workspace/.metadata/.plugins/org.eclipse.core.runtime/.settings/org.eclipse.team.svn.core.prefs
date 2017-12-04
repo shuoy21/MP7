@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+externalMigrateFromAuthorizationDatabase/isMigrated=true
+migrateFromAuthorizationDatabase/isMigrated=true
+repositories/70959bd3929600171243f05fd4869e7c=70959bd3929600171243f05fd4869e7c;https\://subversion.ews.illinois.edu/svn/fa17-cs125/shuoy2;https\://subversion.ews.illinois.edu/svn/fa17-cs125/shuoy2;branches;tags;trunk;true;a8afbef2-3155-4429-a25e-868fb84da794;https\://subversion.ews.illinois.edu/svn/fa17-cs125;;false;<https\://subversion.ews.illinois.edu\:443> UofI Active Directory;;0
+repositories/70e6e28dd2b800171e28d5d622b31d5f=70e6e28dd2b800171e28d5d622b31d5f;https\://subversion.ews.illinois.edu/svn/fa17-cs125/shuoy2/MP5;https\://subversion.ews.illinois.edu/svn/fa17-cs125/shuoy2/MP5;branches;tags;trunk;true;a8afbef2-3155-4429-a25e-868fb84da794;https\://subversion.ews.illinois.edu/svn/fa17-cs125;;false;<https\://subversion.ews.illinois.edu\:443> UofI Active Directory;;0
+repositories/c0932179ff9600171dbaf7a147289d47=c0932179ff9600171dbaf7a147289d47;https\://github.com/CS196Illinois/CS196_FA17_Lecture_Notes.git;https\://github.com/CS196Illinois/CS196_FA17_Lecture_Notes.git;branches;tags;trunk;true;0e4b5217-334a-8332-24b5-ce57b7db7bff;https\://github.com/CS196Illinois/CS196_FA17_Lecture_Notes.git;;false;;;0

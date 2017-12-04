@@ -1,0 +1,73 @@
+import java.util.Arrays;
+
+public class ExpandTest {
+    public static double[] center (final double originalX, final double originalY, final double xRange, final double yRange) {
+        double x = originalX - (xRange - 1) / 2.0;
+        double y = originalY - (yRange - 1) / 2.0;
+        return new double[] {x, y};
+    }
+
+    public static void expand(int[][] originalImage, int factor, boolean isHorizontal, boolean isVertical){
+        int width, height;
+        if (isHorizontal) {
+            width = originalImage.length * factor;
+            height = originalImage[0].length;
+        }   else {
+            width = originalImage.length;
+            height = originalImage[0].length * factor;
+        }
+        int[][] expandImage = new int[width][height];
+
+        for (int x = 0; x < expandImage.length; x++) {
+            for (int y = 0; y < expandImage[0].length; y++) {
+                int originalX, originalY;
+                if (isHorizontal) {
+                    originalX = x / factor;
+                    originalY = y;
+                } else {
+                    originalX = x;
+                    originalY = y / factor;
+                }
+                expandImage[x][y] = originalImage[originalX][originalY];
+            }
+        }
+        int[][] finalImage = new int[originalImage.length][originalImage[0].length];
+        double[] centeredCoor =
+                center(0, 0, originalImage.length, originalImage[0].length);
+        double i = centeredCoor[0];
+        double j = centeredCoor[1];
+        double oriX = 0;
+        double oriY = 0;
+        System.out.println(i+ " " + j);
+        for (int ex = 0; ex < expandImage.length; ex++) {
+            for (int ey = 0; ey < expandImage[0].length; ey++) {
+                double[] centeredOri =
+                        center(ex, ey, expandImage.length, expandImage[0].length);
+                double cx = centeredOri[0];
+                double cy = centeredOri[1];
+
+                if (cx == i && cy == j) {
+                    oriX = ex;
+                    oriY = ey;
+                    break;
+                }
+            }
+        }
+
+        int originY = (int) oriY;
+        for (int nx = 0; nx < finalImage.length; nx++, oriX++) {
+            oriY = originY;
+            for (int ny = 0; ny < finalImage[0].length; ny++, oriY++) {
+                finalImage[nx][ny] = expandImage[(int) oriX][(int) oriY];
+            }
+        }
+        for (int[] row: finalImage)
+            System.out.println(Arrays.toString(row));
+    }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        int[][] originalImage = {{0, 1, 1, 0},{0, 1, 1, 0}};
+        expand(originalImage, 2, false, true);
+}
+}

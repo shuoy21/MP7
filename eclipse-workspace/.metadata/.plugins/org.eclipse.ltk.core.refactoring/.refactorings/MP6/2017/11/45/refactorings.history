@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;DNA.getLongestCommonSubsequence(...)&apos; to &apos;getCommonSubsequence&apos;&#x0A;- Original project: &apos;MP6&apos;&#x0A;- Original element: &apos;DNA.getLongestCommonSubsequence(...)&apos;&#x0A;- Renamed element: &apos;DNA.getCommonSubsequence(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getLongestCommonSubsequence&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src\/main\/java&lt;{DNA.java[DNA~getLongestCommonSubsequence~QDNA;~QDNA;" name="getCommonSubsequence" references="true" stamp="1510333968100" version="1.0"/>
+</session>

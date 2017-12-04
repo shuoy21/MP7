@@ -1,0 +1,45 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.*;
+
+public class test extends JFrame implements KeyListener{
+	
+	static JFrame frame = new JFrame();
+	Graphics2D g2;
+	public static void main(String args[]){
+
+		frame.addKeyListener(new test());
+		frame.setSize(400, 400);
+		frame.setTitle("MP7");
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void paint(Graphics g, String text) {
+		g2 = (Graphics2D) g;
+		text = "a";
+		g2.drawString(text, 0, 0);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getID() == KeyEvent.KEY_TYPED) {
+			
+		}
+		
+	}
+	
+}

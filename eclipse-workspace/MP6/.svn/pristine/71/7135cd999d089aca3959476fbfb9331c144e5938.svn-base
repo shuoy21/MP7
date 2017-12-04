@@ -1,0 +1,16 @@
+import java.util.LinkedList;
+
+public class ReverseList<T> extends LinkedList<T> {
+    private LinkedList<T> list;
+    private LinkedList<T> reversedList;
+    public ReverseList() { };
+    public ReverseList(java.util.Collection<? extends T> collection) {
+        list = collection.reverse();
+    }
+    public java.util.LinkedList<T> reverse(){
+        for(T ele: list) {
+            reversedList.push(ele);
+            }
+        return reversedList;
+        }
+}

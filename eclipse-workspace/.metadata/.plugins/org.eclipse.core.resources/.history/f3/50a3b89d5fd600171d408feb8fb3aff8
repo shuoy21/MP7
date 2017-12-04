@@ -1,0 +1,45 @@
+	import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+	import javax.swing.JLabel;
+	
+public class EP1 implements KeyListener {
+
+	static String text;
+	
+	  public static void main(String[] args) {
+	    JFrame frame = new JFrame("MP7");
+
+
+	    JLabel label = new JLabel(text, JLabel.CENTER);
+	    label.setText("____");  // Look familiar?  <----------
+
+	    frame.add(label);
+
+	    frame.setSize(350, 200); // width=350, height=200
+	    frame.setVisible(true); // Display the frame
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (e.getID() == KeyEvent.KEY_TYPED) {
+			text+= e.getKeyChar();
+		}
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	}

@@ -1,0 +1,119 @@
+
+public class ColorShiftTest {
+
+    public static int[][] colorChange(final int[][] originalImage,
+            final int amount, final boolean isAlpha, final boolean isRed, final boolean isGreen, final boolean isBlue) {
+        int[][] changedColorImage = new int[originalImage.length][originalImage[0].length];
+        for (int x = 0; x < originalImage.length; x++) {
+            for (int y = 0; y < originalImage[0].length; y++) {
+                int pixel = originalImage[x][y];
+                final int move16 = 16;
+                final int move24 = 24;
+                final int move8 = 8;
+                final int hex = 0xff;
+                final int bound = 255;
+                int alpha = (pixel >> move24) & hex;
+                int red = (pixel >> move16) & hex;
+                int green = (pixel >> move8) & hex;
+                int blue = pixel & hex;
+                if (isAlpha) {
+                    alpha += amount;
+                    if (alpha > bound) {
+                        alpha = bound;
+                    }
+                } else if (isRed) {
+                    red += amount;
+                    if (red > bound) {
+                        red = bound;
+                    }
+                } else if (isGreen) {
+                    green += amount;
+                    if (green > bound) {
+                        green = bound;
+                    }
+                } else if (isBlue) {
+                    blue += amount;
+                    if (blue > bound) {
+                        blue = bound;
+                    }
+                } else {
+                    ;
+                }
+                int newPixel = alpha << move24 | (red << move16) | (green << move8) | blue;
+                changedColorImage[x][y] = newPixel;
+                System.out.println(Integer.toHexString(newPixel));
+            }
+        }
+        return changedColorImage;
+    }
+    ////////////////////////////-------------------
+    public static int[][] moreRed(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, amount, false, true, false, false);
+    }
+
+    /*
+     * Remove red from the image.
+     */
+    public static int[][] lessRed(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, (0 - amount), false, true, false, false);
+    }
+
+    /*
+     * Add green to the image.
+     */
+    public static int[][] moreGreen(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, amount, false, false, true, false);
+    }
+
+    /*
+     * Remove green from the image.
+     */
+    public static int[][] lessGreen(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, (0 - amount), false, false, true, false);
+    }
+
+    /*
+     * Add blue to the image.
+     */
+    public static int[][] moreBlue(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, amount, false, false, false, true);
+    }
+
+    /*
+     * Remove blue from the image.
+     */
+    public static int[][] lessBlue(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, (0 - amount), false, false, false, true);
+    }
+
+    /*
+     * Increase the image alpha channel.
+     */
+    public static int[][] moreAlpha(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, amount, true, false, false, false);
+    }
+
+    /*
+     * Decrease the image alpha channel.
+     */
+    public static int[][] lessAlpha(final int[][] originalImage, final int amount) {
+        return colorChange(originalImage, (0 - amount), true, false, false, false);
+    }
+
+    public static void main(String[] args) {
+
+        // TODO Auto-generated method stub
+        int[][] original =  {{0x747b7af7, 0x1ab834d},
+                {0xc62c0b9b, 0x64c34f47},
+                {0x2b0b34a7, 0x5220eda2},
+                {0x612c4973, 0xaba0d44b}};
+        int[][] output = moreRed(original, 106);
+        System.out.println("------------------");
+        for (int[] row: original) {
+            for (int ele: row) {
+                System.out.println(Integer.toHexString(ele));
+            }
+        }
+    }
+
+}

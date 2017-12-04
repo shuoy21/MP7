@@ -1,0 +1,36 @@
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+
+import org.jnativehook.GlobalScreen;
+
+
+public class KeyRecorder implements KeyListener{
+	
+	
+	public static void main(String args[]) {
+		GlobalScreen.registerNativeHook();
+		
+	
+	}
+	
+	public void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g.drawString(a, 0, 0);
+	}
+	
+	
+	public void keyPressed(KeyEvent e) { 
+		;
+	}
+    public void keyReleased(KeyEvent e) { 
+		if (e.getKeyCode() == KeyEvent.KEY_TYPED) {
+			a += e.getKeyChar();
+		}
+    }
+    public void keyTyped(KeyEvent e) {
+        ;
+    }
+	
+}

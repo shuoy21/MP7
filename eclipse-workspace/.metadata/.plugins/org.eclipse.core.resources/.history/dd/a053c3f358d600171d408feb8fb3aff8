@@ -1,0 +1,15 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JComponent;
+
+class Text extends JComponent{
+	String text;
+	Text(String text){
+		this.text = text;
+	}
+	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawString(text, 20, 0);
+	}
+}

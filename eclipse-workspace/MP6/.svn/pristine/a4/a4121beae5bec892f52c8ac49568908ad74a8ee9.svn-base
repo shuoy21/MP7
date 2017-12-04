@@ -1,0 +1,30 @@
+import java.util.LinkedList;
+/**
+ * A class that adds a reversal method to the existing LinkedList class.
+ * @param <T> type of linked list
+ */
+public class ReverseList<T> extends LinkedList<T> {
+
+    private LinkedList<T> list;
+    /**
+     * Empty list constructor.
+     */
+    public ReverseList() {
+        list = new LinkedList();
+    }
+    /**
+     * Create a ReverseLinkedList from another collection type.
+     * @param collection the collection to create the ReverseLinkedList from
+     */
+    public ReverseList(final java.util.Collection<? extends T> collection) {
+          list = new LinkedList(collection);
+    }
+
+    public java.util.LinkedList<T> reverse() {
+        LinkedList<T> reversedList = new LinkedList<T>();
+        while (reversedList.size() < list.size()) {
+            reversedList.push(list.poll());
+        }
+        return reversedList;
+    }
+}

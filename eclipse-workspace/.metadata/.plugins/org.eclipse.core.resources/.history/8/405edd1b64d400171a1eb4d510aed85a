@@ -1,0 +1,13 @@
+import java.awt.event.KeyEvent;
+
+
+public class KeyRecorder {
+	public void KeyListen(KeyEvent e) {
+		int keyId = e.getID();
+		String lineTyped = "";
+		if (keyId == KeyEvent.KEY_TYPED) {
+			lineTyped += e.getKeyChar();
+		}
+		System.out.println(lineTyped);
+	}
+}

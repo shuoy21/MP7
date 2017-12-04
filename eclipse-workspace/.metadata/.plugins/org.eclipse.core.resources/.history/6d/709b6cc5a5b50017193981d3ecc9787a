@@ -1,0 +1,10 @@
+
+public class Prac10_20_9 {
+	public static void main(String args[]) {
+		do {
+		Dice dice1 = new Dice();
+		Dice dice2 = new Dice();
+		total = dice1 + dice2;
+		}
+	}
+}

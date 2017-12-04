@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Factorical&apos; to &apos;Factorial&apos;&#x0A;- Original project: &apos;Practice&apos;&#x0A;- Original element: &apos;Factorical&apos;&#x0A;- Renamed element: &apos;Factorial&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Factorical&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{Factorical.java[Factorical" matchStrategy="1" name="Factorial" qualified="false" references="true" similarDeclarations="false" stamp="1505678311324" textual="false" version="1.0"/>
+</session>

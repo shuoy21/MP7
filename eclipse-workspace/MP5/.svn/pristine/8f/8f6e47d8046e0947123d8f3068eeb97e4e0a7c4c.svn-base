@@ -1,0 +1,505 @@
+/**
+ * A class that implements a Connect4-like game.
+ */
+public class ConnectN {
+
+    /**
+     * maximum height of the board.
+     */
+    public static final int MAX_HEIGHT = 16;
+    /**
+     * maximum width of the board.
+     */
+    public static final int MAX_WIDTH = 16;
+    /**
+     * minimum height of the board.
+     */
+    public static final int MIN_HEIGHT = 6;
+    /**
+     * minimum width of the board.
+     */
+    public static final int MIN_WIDTH = 6;
+    /**
+     * minimum n value of the game.
+     */
+    public static final int MIN_N = 4;
+    /**
+     * total games played.
+     */
+    private static int totalGames;
+    /**
+     * width of the board.
+     */
+    private int width;
+    /**
+     * height of the board.
+     */
+    private int height;
+    /**
+     * n value of the game.
+     */
+    private int n;
+    /**
+     * player ID.
+     */
+    private int id;
+    /**
+     * board of the game.
+     */
+    private Player[][] board;
+    /**
+     * title of the game.
+     */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    public String title;
+    /**
+     * if the game finished. true of finished.
+     */
+    private boolean finished = false;
+    /**
+     * if the game started. true if started.
+     */
+    private boolean started = false;
+    /**
+     * the winner of the game.
+     */
+    private Player winner;
+
+    /**
+     * Create a new ConnectN board with uninitialized width, height, and N value.
+     */
+    public ConnectN() {
+        totalGames++;
+    }
+
+    /**
+     * Create a new ConnectN board with dimensions and N value copied from another board.
+     * @param otherBoard another board that connectN board copies from
+     */
+    public ConnectN(final ConnectN otherBoard) {
+        totalGames++;
+        width = otherBoard.getWidth();
+        height = otherBoard.getHeight();
+        n = otherBoard.getN();
+        board = new Player[width][height];
+    }
+
+    /**
+     * Create a new ConnectN board with given width and height and uninitialized N value.
+     * @param setWidth gives the width of the board
+     * @param setHeight gives the height of the board
+     */
+    public ConnectN(final int setWidth, final int setHeight) {
+        totalGames++;
+        id = totalGames - 1;
+        if (setWidth > MAX_WIDTH || setWidth < MIN_WIDTH) {
+            width = 0;
+        } else {
+            width = setWidth;
+        }
+        if (setHeight > MAX_HEIGHT || setHeight < MIN_HEIGHT) {
+            height = 0;
+        } else {
+            height = setHeight;
+        }
+        board = new Player[width][height];
+    }
+
+    /**
+     * Creates a new ConnectN board with a given width, height, and N value.
+     * attempts to set the width, height, or N value to invalid value should lead to them
+     * being uninitialized.
+     * track the total number of games that have been created, which can be retrieved by
+     * getTotalGames().
+     * Each board should also receive a unique ID equal to the number of games minus 1.
+     * So the first board gets 0, etc. This should be returned by getID()
+     * @param setWidth gives the width of the board
+     * @param setHeight gives the height of the board
+     * @param setN gives N of the board
+     */
+    public ConnectN(final int setWidth, final int setHeight, final int setN) {
+        totalGames++;
+        id = totalGames - 1;
+        if (setN < MIN_N || setN >= Math.max(setHeight, setWidth)) {
+            n = 0;
+        } else {
+            n = setN;
+        }
+        if (setWidth > MAX_WIDTH || setWidth < MIN_WIDTH) {
+            width = 0;
+            n = 0;
+        } else {
+            width = setWidth;
+        }
+        if (setHeight > MAX_HEIGHT || setHeight < MIN_HEIGHT) {
+            height = 0;
+            n = 0;
+        } else {
+            height = setHeight;
+        }
+        board = new Player[width][height];
+    }
+    /**
+     * Class method to create a new ConnectN board. return null if invalid
+     * @param setWidth width of board
+     * @param setHeight height of board
+     * @param setN n of game
+     * @return board
+     */
+    // totalGame is incremented
+    public static ConnectN create(final int setWidth, final int setHeight, final int setN) {
+        if (setWidth > MAX_WIDTH || setWidth < MIN_WIDTH) {
+            return null;
+        }
+        if (setHeight > MAX_HEIGHT || setHeight < MIN_HEIGHT) {
+            return null;
+        }
+        if (setN < MIN_N ||  setN >= Math.max(setHeight, setWidth)) {
+            return null;
+        }
+        return new ConnectN(setWidth, setHeight, setN);
+    }
+    /**
+     * Creates multiple new ConnectN instances.
+     * @param number number of boards created
+     * @param setWidth width of board
+     * @param setHeight height of board
+     * @param setN n of game
+     * @return array of boards, null if parameter is invalid
+     */
+    public static ConnectN[] createMany(final int number,
+            final int setWidth, final int setHeight, final int setN) {
+        ConnectN[] boards = new ConnectN[number];
+        if (setWidth > MAX_WIDTH || setWidth < MIN_WIDTH) {
+            return null;
+        }
+        if (setHeight > MAX_HEIGHT || setHeight < MIN_HEIGHT) {
+            return null;
+        }
+        if (setN < MIN_N || setN >= Math.max(setHeight, setWidth)) {
+            return null;
+        }
+        for (int i = 0; i < boards.length; i++) {
+            boards[i] = new ConnectN(setWidth, setHeight, setN);
+        }
+        return boards;
+    }
+    ////////////////////
+    /**
+     * get the total number of games.
+     * @return total number of games
+     */
+    public static int getTotalGames() {
+        return totalGames;
+    }
+    /**
+     * get width of board.
+     * @return width of board
+     */
+    public int getWidth() {
+        return width;
+    }
+    /**
+     * set width of the board.
+     * @param setWidth new width
+     * @return if set is successful
+     */
+    public boolean setWidth(final int setWidth) {
+        if (!started) {
+            if (setWidth > MAX_WIDTH || setWidth < MIN_WIDTH) {
+                return false;
+            } else {
+                width = setWidth;
+                if (n > Math.max(width - 1, height - 1)) {
+                    n = 0;
+                }
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    /**
+     * get height of the board.
+     * @return height of the board
+     */
+    public int getHeight() {
+        return height;
+    }
+    /**
+     * set height of the board.
+     * @param setHeight height of the board
+     * @return true if set is successful
+     */
+    public boolean setHeight(final int setHeight) {
+        if (!started) {
+            if (setHeight > MAX_HEIGHT || setHeight < MIN_HEIGHT) {
+                return false;
+            } else {
+                height = setHeight;
+                if (n > Math.max(width - 1, height - 1)) {
+                    n = 0;
+                }
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    /**
+     * get n value of the game.
+     * @return n
+     */
+    public int getN() {
+        return n;
+    }
+    /**
+     * set n value of the game.
+     * @param setN new n
+     * @return true if set is successful
+     */
+    public boolean setN(final int setN) {
+        if (!started) {
+            if (setN < MIN_N || setN > Math.max(width - 1, height - 1)) {
+                return false;
+            } else if (width == 0 || height == 0) {
+                return false;
+            } else {
+                n = setN;
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    /**
+     * get id of the game.
+     * @return id
+     */
+    public int getID() {
+        return id;
+    }
+    /**
+     * get the player at a location.
+     * @param getX x coordinate
+     * @param getY y coordinate
+     * @return player at the specified position
+     */
+    public Player getBoardAt(final int getX, final int getY) {
+        int x;
+        if (board == null) {
+            return null;
+        }
+        if (!started) {
+            return null;
+        }
+        if (getX < 0 || getX > width - 1) {
+            return null;
+        } else {
+            x = getX;
+        }
+        if (getY < 0 || getY > height - 1) {
+            return null;
+        }
+        return board[x][getY];
+    }
+    /**
+     * get the board.
+     * @return board
+     */
+    public Player[][] getBoard() {
+        if (width == 0 || height == 0) {
+            return null;
+        }
+        Player[][] boardCopy = new Player[width][height];
+        System.out.println(boardCopy);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                boardCopy[i][j] = board[i][j];
+                }
+            }
+        return boardCopy;
+    }
+    /**
+     * get winner.
+     * @return true if there's a winner
+     */
+    public Player getWinner() {
+        if (finished) {
+            //System.out.println("line 328 score" + winner.getScore());
+            return winner;
+        } else {
+            return null;
+        }
+    }
+    ///////////////////////////
+    /**
+     * check if the game finished.
+     * @return true if the game finished
+     */
+    private boolean checkFinished() {
+        // vertical
+        //finished = false;
+        if (board == null) {
+            return false;
+        }
+        Player empty = new Player("null");
+        for (int x = 0; x < width; x++) {
+            Player lastPlayer = new Player("default");
+            int count = 0;
+            for (int y = 0; y < height; y++) {
+                Player currentPlayer = board[x][y];
+                if (currentPlayer == null) {
+                    currentPlayer = empty;
+                }
+                if (!currentPlayer.equals(empty) && currentPlayer.equals(lastPlayer)) {
+                    count++;
+                    lastPlayer = currentPlayer;
+                } else {
+                    count = 0;
+                    lastPlayer = currentPlayer;
+                }
+                if (count == n - 1) {
+                    currentPlayer.addScore();
+                    winner = currentPlayer;
+                    finished = true;
+                    started = false;
+                    return finished;
+                }
+            }
+        }
+        for (int y = 0; y < height; y++) {
+            Player lastPlayer = new Player("default");
+            int count = 0;
+            for (int x = 0; x < width; x++) {
+                Player currentPlayer = board[x][y];
+                if (currentPlayer == null) {
+                    currentPlayer = empty;
+               }
+                if (!currentPlayer.equals(empty) && currentPlayer.equals(lastPlayer)) {
+                    count++;
+                    lastPlayer = currentPlayer;
+                } else {
+                    count = 0;
+                    lastPlayer = currentPlayer;
+                }
+                if (count == n - 1) {
+                    currentPlayer.addScore();
+                    winner = currentPlayer;
+                    finished = true;
+                    started = false;
+                    return finished;
+                }
+            }
+        }
+        return finished;
+    }
+    /**
+     * set the player at a location.
+     * @param player the player of the run
+     * @param setX x coordinate
+     * @param setY y coordinate
+     * @return true if set is successful
+     */
+    public boolean setBoardAt(final Player player, final int setX, final int setY) {
+        if (player == null) {
+
+            return false;
+        }
+        if (getBoardAt(setX, setY) != null) {
+
+            return false;
+        }
+        if (width == 0 || height == 0 || n == 0) {
+
+            return false;
+        } else if (setX < 0 || setX > width - 1 || setY < 0 || setY > height - 1) {
+
+            return false;
+        } else if (finished) {
+
+            return false;
+        } else {
+
+            for (int lastY = setY - 1; lastY >= 0; lastY--) {
+                if (getBoardAt(setX, lastY) == null) {
+                    return false;
+                }
+            }
+        }
+        //int realY = height - 1 - setY;
+        board[setX][setY] = player;
+        started = true;
+        checkFinished();
+        return true;
+    }
+    /**
+     * drop the player at a column.
+     * @param player player to be set
+     * @param setX x coordinate
+     * @return if set is successful
+     */
+    public boolean setBoardAt(final Player player, final int setX) {
+
+        for (int y = 0; y <= height - 1; y++) {
+            boolean setable = setBoardAt(player, setX, y);
+
+            if (setable) {
+                return setable;
+            }
+          }
+        return false;
+
+      }
+    /////////////
+    /**
+     * compare if several boards are the same.
+     * @param boards the boards to be compared
+     * @return true if they are the same
+     */
+    public static boolean compareBoards(final ConnectN...boards) {
+        for (int i = 0; i < boards.length - 1; i++) {
+            boolean twoBoardsEqual = compareBoards(boards[i], boards[i + 1]);
+            if (twoBoardsEqual == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * compare if two boards are the same.
+     * @param firstBoard first board to be compared
+     * @param secondBoard second board to be compared
+     * @return true if two boards are the same.
+     */
+    public static boolean compareBoards(final ConnectN firstBoard, final ConnectN secondBoard) {
+        if (firstBoard == null) {
+            return false;
+        }
+        if (secondBoard == null) {
+            return false;
+        }
+        if (firstBoard.getHeight() != secondBoard.getHeight()) {
+            return false;
+        }
+        if (firstBoard.getWidth() != secondBoard.getWidth()) {
+            return false;
+        }
+        if (firstBoard.getN() != secondBoard.getN()) {
+            return false;
+        }
+        for (int x = 0; x < firstBoard.width; x++) {
+            for (int y = 0; y < firstBoard.height; y++) {
+                Player playerA = firstBoard.getBoardAt(x, y);
+                Player playerB = secondBoard.getBoardAt(x, y);
+                if ((playerA == null && playerB != null) || (playerB == null && playerA != null)) {
+                    return false;
+                }
+                if (playerA != null && playerB != null & (!playerA.equals(playerB))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    }

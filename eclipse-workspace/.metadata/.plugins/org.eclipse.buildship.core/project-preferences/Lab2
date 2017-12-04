@@ -1,0 +1,9 @@
+#
+#Sun Dec 03 18:14:26 CST 2017
+linkedResources=
+managedNatures=
+classpath=<?xml version\="1.0" encoding\="UTF-8"?>\n<classpath>\n<classpathentry kind\="lib" path\="/Users/shuoyan/.gradle/caches/modules-2/files-2.1/com.github.cs125-illinois/mazemaker/0.3/639c51246b6e013b451bddc81fcfb16bc3d57dda/mazemaker-0.3.jar" sourcepath\="/Users/shuoyan/.gradle/caches/modules-2/files-2.1/com.github.cs125-illinois/mazemaker/0.3/f1c0e2c135d8bd76de449be5527178485fdfd4bd/mazemaker-0.3-sources.jar"/>\n</classpath>\n
+subprojectPaths=
+derivedResources=.gradle\:build
+managedBuilders=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><commands/>
+buildDir=build

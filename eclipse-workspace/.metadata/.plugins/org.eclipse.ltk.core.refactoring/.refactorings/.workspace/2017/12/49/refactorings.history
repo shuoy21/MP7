@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from workspace&#x0A;- Original elements:&#x0A;     KeyRecorder.java&#x0A;     Run.java&#x0A;     test.java&#x0A;     Text.java&#x0A;     Practice/src/mp7" description="Delete elements" element1="=MP7/src&lt;{Run.java" element2="=MP7/src&lt;{Text.java" element3="=MP7/src&lt;{KeyRecorder.java" element4="=MP7/src&lt;{test.java" element5="=Practice/src&lt;mp7" elements="5" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1512346003155" subPackages="false" version="1.0"/>
+</session>

@@ -1,0 +1,191 @@
+import java.io.File;
+<<<<<<< .mine
+||||||| .r4760
+=======
+import java.net.URI;
+import java.security.InvalidParameterException;
+>>>>>>> .r5148
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
+/**
+ * A class that prints lines for a given actress from a script.
+ * <p>
+ * The provided code is incomplete. Modify it so that it works properly and passes the unit tests in
+ * <code>ScriptPrinterTest.java</code>.
+ *
+ * @see <a href="https://cs125.cs.illinois.edu/MP/2/">MP2 Documentation</a>
+ */
+public class ScriptPrinter {
+
+    /**
+     * Script file that we use for interactive testing. Not necessarily the same as the files used
+     * during automated testing.
+     */
+    private static final String INTERACTIVE_SCRIPT_FILE = "Rent-Excerpt.txt";
+
+    /**
+     * Prints lines from a script for a given actress (or actor).
+     * <p>
+     * Given a script formatted like "Rent-Excerpt.txt" and "Rent.txt", print all lines for a given
+     * actress in the following format. For example, if the search term is "Roger" or "roger":
+     * <pre>
+     * ROGER
+     * ---
+     * This won't tune.
+     * ---
+     * Are you talking to me?
+     * ---
+     * I'm writing one great song --
+     * ---
+     * </pre>
+     *
+     * <p>
+     * Etc. Here are the guidelines:
+     * <ol>
+     * <li>You should print the name of the actress capitalized first on a single line. But only
+     * once.</li>
+     * <li>Groups of lines are separated by "---". Put another way, once another character begins
+     * speaking, print the "---" divider. Your output should also end with a "---".</li>
+     * <li>Do not print unspoken stage directions: these lines start with "(".  * For example, this
+     * is a stage direction:
+     * <pre>
+     * (He turns the camera to ROGER)
+     * </pre>
+     * </li>
+     * <li>If you are asked to search for lines for an actress that does not exist, you should print
+     * nothing: not their name, not any "---" separators.</li>
+     * </ol>
+     * <p>
+     * Complete the Javadoc comment and write this function.
+     * @param actress gives the name of the actress whose lines are searched
+     * @param script gives the script to search from
+     */
+    public static void printLinesFor(final String actress, final String script) {
+        /*Scanner geneLine = new Scanner(script);
+        System.out.println(actress.toUpperCase());
+        while (geneLine.hasNext()) {
+            String name = geneLine.nextLine();
+            String printedLine;
+            boolean isActress = name.equals(actress.toUpperCase());
+            if (isActress) {
+                System.out.println("---");
+            }
+            while (isActress && geneLine.hasNext()) {
+                printedLine = geneLine.nextLine();
+                String braces;
+                while (printedLine.contains("(")) { // search for ()
+                    braces = printedLine;
+                    if (braces.contains(")")) {
+                        printedLine = geneLine.nextLine();
+                        break;
+                    } else {
+                        braces = geneLine.nextLine();
+                    } // end search for ()
+                }
+                if (printedLine.toUpperCase().equals(printedLine)) {
+                    break;
+                } // break when comes to another person's line
+                System.out.println(printedLine);
+            }
+        }
+        System.out.println("---");
+        */
+        //System.out.println(actress.toUpperCase());
+        boolean isActress = false;
+        boolean firstNamePrint = true;
+        boolean lastDashPrint = false;
+        String[] line = script.split("\n");
+        for (int i = 0; i < line.length; i++) {
+            if (actress.toUpperCase().equals(line[i])) {
+                if (firstNamePrint) {
+                    System.out.println(actress.toUpperCase());
+                    firstNamePrint = false;
+                }
+                System.out.println("---");
+                isActress = true;
+                lastDashPrint = true;
+                continue;
+            } else if (line[i].length() == 0) {
+                isActress = false;
+                continue;
+            }
+            if (isActress == true) {
+                if (!line[i].startsWith("(")) {
+                    System.out.println(line[i]);
+                }
+            }
+        }
+        if (lastDashPrint) {
+            System.out.println("---");
+        }
+    }
+
+    /**********************************************************************************************
+     * You do not need to modify code below this comment.
+     **********************************************************************************************/
+
+    /**
+     * Solicits a single name from the user at the command line and searches for it in an exceprt
+     * from Rent (Rent-Excerpt.txt).
+     * <p>
+     * You are free to review this function, but should not modify it. Note that this function is
+     * not tested by the test suite, as it is purely to aid your own interactive testing.
+     *
+     * @param unused unused input arguments
+     */
+    public static void main(final String[] unused) {
+
+        String inputPrompt = String.format("Enter the name of an actress to print lines for:");
+        Scanner lineScanner = new Scanner(System.in);
+
+        while (true) {
+            String actressName = null;
+            System.out.println(inputPrompt);
+
+            /*
+             * We could just use lineScanner.hasNextInt() and not initialize a separate scanner. But
+             * the default Scanner class ignores blank lines and continues to search for input until
+             * a non-empty line is entered. This approach allows us to detect empty lines and remind
+             * the user to provide a valid input.
+             */
+            String nextLine = lineScanner.nextLine();
+            Scanner inputScanner = new Scanner(nextLine);
+            if (!(inputScanner.hasNext())) {
+                /*
+                 * These should be printed as errors using System.err.println. Unfortunately,
+                 * Eclipse can't keep System.out and System.err ordered properly.
+                 */
+                System.out.println("Invalid input: please enter an single name.");
+                continue;
+            }
+            actressName = inputScanner.next();
+            /*
+             * If the line started with a string but contains other tokens, reinitialize userInput
+             * and prompt the user again.
+             */
+            if (inputScanner.hasNext()) {
+                System.out.println("Invalid input: please enter only a single name.");
+                continue;
+            }
+            inputScanner.close();
+
+            String rentExcerpt;
+            try {
+                String rentExcerptPath = ScriptPrinter.class.getClassLoader()
+                        .getResource(INTERACTIVE_SCRIPT_FILE).getFile();
+                rentExcerptPath = new URI(rentExcerptPath).getPath();
+                File rentExcerptFile = new File(rentExcerptPath);
+                Scanner rentExcerptScanner = new Scanner(rentExcerptFile, "UTF-8");
+                rentExcerpt = rentExcerptScanner.useDelimiter("\\A").next();
+                rentExcerptScanner.close();
+            } catch (Exception e) {
+                throw new InvalidParameterException("Bad file path" + e);
+            }
+
+            printLinesFor(actressName, rentExcerpt);
+            break;
+        }
+        lineScanner.close();
+    }
+}

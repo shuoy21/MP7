@@ -1,0 +1,44 @@
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+
+
+public class KeyRecorder implements KeyListener{
+	
+	private static String text;
+	public static void main(String args[]) {
+		JFrame frame = new JFrame();
+
+		frame.setSize(200, 200);
+		frame.setFocusable(true);
+		frame.requestFocus();
+		
+		JTextField typingArea = new JTextField(200);
+		
+		typingArea.addKeyListener(new KeyRecorder());
+
+		frame.setVisible(true);
+	}
+	
+	
+	
+	
+	public void keyPressed(KeyEvent e) { 
+		;
+	}
+    public void keyReleased(KeyEvent e) { 
+		if (e.getKeyCode() == KeyEvent.KEY_TYPED) {
+			text+= e.getKeyChar();
+		}
+    }
+    public void keyTyped(KeyEvent e) {
+        ;
+    }
+	
+}
