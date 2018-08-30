@@ -1,4 +1,3 @@
-
 /**
  * A class that implements a basic binary tree storing integers.
  * <p>
@@ -16,12 +15,15 @@
  */
 public class Tree {
 
+    /**
+     * Current node's value.
+     */
+    private int value;
 
     /**
      * Current node's parent. May be null if I'm the root of the tree.
      */
     private Tree parent;
-
 
     /**
      * Current node's left child, or null if none.
@@ -33,170 +35,117 @@ public class Tree {
      */
     private Tree right;
 
-
-    /**
-     * Current node's value.
-     */
-    private int value;
-
-    /**
-     * Initialize a new binary tree.
-     * @param setValue value for the root of the tree
-     */
     public Tree(final int setValue) {
-        parent = null;
-        value = setValue;
+        this.value = setValue;
+        this.parent = null;
     }
 
-    /**
-     * Initialize a new binary tree node for an existing tree.
-     * @param setValue value for the new node
-     * @param setParent the parent of this node
-     */
     public Tree(final int setValue, final Tree setParent) {
-        parent = setParent;
-        value = setValue;
+    this.value = setValue;
+    this.parent = setParent;
     }
 
-    /**
-     * Insert a new value into the binary tree.
-     * Insertion should fail and return false if the value already exists in the tree.
-     * @param newValue the new value to insert
-     * @return true if the value does not already exist
-     * and is successfully inserted, false otherwise
-     */
     public boolean insert(final int newValue) {
         if (value == newValue) {
             return false;
-        }
-        Tree currentTree = this;
-            if (value > newValue) {
-                if (right == null) {
-                    right = new Tree(newValue, this);
-                    return true;
-                } else {
-                    currentTree = right;
-                }
+        } else if (value > newValue) {
+            if (right == null) {
+                right = new Tree(newValue, this);
+                return true;
+            } else {
+                return right.insert(newValue);
             }
-            if (value < newValue) {
-                if (left == null) {
-                    left = new Tree(newValue, this);
-                    return true;
-                } else {
-                    currentTree = left;
-                }
+        } else {
+            if (left == null) {
+                left = new Tree(newValue, this);
+                return true;
+            } else {
+                return left.insert(newValue);
             }
-            return currentTree.insert(newValue);
         }
+    }
 
-    /**
-     * Return the minimum value stored in this binary tree.
-     * @return the minimum value stored in the tree.
-     */
     public int minimum() {
-        int leftMin, rightMin;
         if (left == null && right == null) {
             return value;
+        }
+        int leftMin = Integer.MAX_VALUE;
+        int rightMin = Integer.MAX_VALUE;
+        if (right != null) {
+            rightMin = right.minimum();
         }
         if (left != null) {
             leftMin = left.minimum();
-        } else {
-            leftMin = value;
-        }
-        if (right != null) {
-            rightMin = right.minimum();
-        } else {
-            rightMin = value;
         }
         int min = Math.min(leftMin, rightMin);
-        if (value < min) {
+        if (value > min) {
+            return min;
+        } else {
             return value;
         }
-        return min;
     }
-    /**
-     * Return the maximum value stored in this binary tree.
-     * @return the maximumvalue stored in the tree.
-     */
+
     public int maximum() {
-        int leftMax, rightMax;
         if (left == null && right == null) {
             return value;
+        }
+        int rightMax = Integer.MIN_VALUE;
+        int leftMax = Integer.MIN_VALUE;
+        if (right != null) {
+            rightMax = right.maximum();
         }
         if (left != null) {
             leftMax = left.maximum();
-        } else {
-            leftMax = value;
-        }
-        if (right != null) {
-            rightMax = right.maximum();
-        } else {
-            rightMax = value;
         }
         int max = Math.max(rightMax, leftMax);
-        if (value > max) {
+        if (value < max) {
+            return max;
+        } else {
             return value;
         }
-        return max;
     }
-    /**
-     * Return the number of nodes below this node in the tree.
-     * @return the number of nodes below this node in the tree.
-     */
-    public int descendants() {
-        int leftDecend, rightDecend;
-        if (left == null && right == null) {
-            return 0;
-        }
-        if (left != null) {
-            leftDecend = 1 + left.descendants();
-        } else {
-            leftDecend = 0;
-        }
-        if (right != null) {
-            rightDecend = 1 +  right.descendants();
-        } else {
-            rightDecend = 0;
-        }
-        return leftDecend + rightDecend;
-    }
-    /**
-     * Search the binary tree for a specific value.
-     * @param searchValue the value to search for
-     * @return the node containing the specified value,
-     * or null if the value is not present in the tree
-     */
-    public Tree search(final int searchValue) {
-        Tree currentNode = this;
+
+    public Tree search(int searchValue) {
         if (value == searchValue) {
             return this;
         }
         if (left == null && right == null) {
             return null;
         }
-        if (value > searchValue) {
-            if (right == null) {
-                return null;
-            }
-            currentNode = right;
+
+        Tree result = null;
+        if (left != null) {
+            result = left.search(searchValue);
         }
-        if (value < searchValue) {
-            if (left == null) {
-                return null;
-            }
-            currentNode = left;
+
+        if (result == null && right != null) {
+            result = right.search(searchValue);
         }
-        return currentNode.search(searchValue);
+
+        return result;
     }
 
-    /**
-     * Return the depth of this node from the root of the tree.
-     * @return the depth of this node relative to the root
-     */
     public int depth() {
         if (parent == null) {
             return 0;
         }
+
         return 1 + parent.depth();
     }
+
+    public int descendants() {
+        if (left == null && right == null) {
+            return 0;
+        }
+        int leftDescendants = 0;
+        int rightDescendants = 0;
+        if (left != null) {
+            leftDescendants += 1 + left.descendants();
+        }
+        if (right != null) {
+            rightDescendants += 1 + right.descendants();
+        }
+        return leftDescendants + rightDescendants;
+    }
+
 }

@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="getLongerSequence" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="null"/>
+			<item value="max"/>
+			<item value="mimi"/>
 			<item value="getLongerSequence"/>
 			<item value="-52"/>
 			<item value="-914"/>
@@ -16,13 +19,10 @@
 			<item value="ACD"/>
 			<item value="            String lcs = DNA.getLongestCommonSubsequence(testResult.firstSequence,"/>
 			<item value="System"/>
-			<item value="null"/>
 			<item value="2,"/>
 			<item value="1,"/>
 			<item value="481"/>
 			<item value="2"/>
-			<item value="1, 2"/>
-			<item value="5"/>
 		</list>
 		<list key="replacehistory">
 		</list>
@@ -32,6 +32,6 @@
 		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
 		<item value="409" key="DIALOG_HEIGHT"/>
 		<item value="844" key="DIALOG_X_ORIGIN"/>
-		<item value="388" key="DIALOG_Y_ORIGIN"/>
+		<item value="387" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

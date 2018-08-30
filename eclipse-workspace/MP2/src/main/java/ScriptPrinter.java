@@ -1,6 +1,7 @@
 import java.io.File;
 import java.net.URI;
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -57,7 +58,7 @@ public class ScriptPrinter {
      * @param actress gives the name of the actress whose lines are searched
      * @param script gives the script to search from
      */
-    public static void printLinesFor(final String actress, final String script) {
+    /*public static void printLinesFor(final String actress, final String script) {
         /*Scanner geneLine = new Scanner(script);
         System.out.println(actress.toUpperCase());
         while (geneLine.hasNext()) {
@@ -88,7 +89,7 @@ public class ScriptPrinter {
         System.out.println("---");
         */
         //System.out.println(actress.toUpperCase());
-        boolean isActress = false;
+       /* boolean isActress = false;
         boolean firstNamePrint = true;
         boolean lastDashPrint = false;
         String[] line = script.split("\n");
@@ -115,8 +116,34 @@ public class ScriptPrinter {
         if (lastDashPrint) {
             System.out.println("---");
         }
-    }
+    }*/
 
+    public static void printLinesFor(final String actress, final String script) {
+        if (script.indexOf(actress.toUpperCase()) == -1) {
+            return;
+        }
+        System.out.println(actress.toUpperCase());
+        System.out.println("---");
+        String localS = script.substring(0, script.length() - 1);
+        String[] text = localS.split("\n\n");
+        for (String aScript: text) {
+            boolean print = false;
+            String[] lines = aScript.split("\n");
+            if (lines[0].equals(actress.toUpperCase())) {
+                print = true;
+            }
+            aScript = aScript.substring(aScript.indexOf("\n") + 1   );
+            if (print) {
+                int startIndex = aScript.indexOf('(');
+                int endIndex = aScript.indexOf(')');
+                if (startIndex != -1 && endIndex != -1) {
+                    aScript = aScript.substring(0, startIndex) + aScript.substring(endIndex + 2);
+                }
+                System.out.println(aScript);
+                System.out.println("---");
+            }
+        }
+    }
     /**********************************************************************************************
      * You do not need to modify code below this comment.
      **********************************************************************************************/

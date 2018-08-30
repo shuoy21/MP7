@@ -12,7 +12,7 @@ public class KeyLogger implements KeyListener {
 			JFrame frame = new JFrame();
 			label.setText("MP7"); 
 	    
-			frame.addKeyListener(new KeyLogger());
+			//frame.addKeyListener(new KeyLogger());
 			frame.add(label);
 			frame.setSize(400, 400); 
 			frame.setVisible(true); 
@@ -22,22 +22,24 @@ public class KeyLogger implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if (e.getID() == KeyEvent.KEY_TYPED) {
-			text += e.getKeyChar();
-			label.setText(text);
-		}
 		
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent e) {		
 	}
 
-	@Override
+
+	int count = 0;
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getID() == KeyEvent.KEY_RELEASED) {
+			if (count % 2 == 0) {
+			text += e.getKeyChar();
+			//System.out.println(text);
+			label.setText(text);
+			}
+			count++;
+		}
 		
 	}
 

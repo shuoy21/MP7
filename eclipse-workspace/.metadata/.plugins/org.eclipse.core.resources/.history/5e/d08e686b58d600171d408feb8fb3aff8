@@ -1,6 +1,0 @@
-
-class Text extends JComponent{
-	void paint(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-	}
-}

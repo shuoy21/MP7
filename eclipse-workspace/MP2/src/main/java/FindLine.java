@@ -66,7 +66,7 @@ public class FindLine {
      * @param searchWord gives the word that user want to find in line
      * @param corpus gives the input text file
      */
-    public static void printMatchingLines(final String searchWord, final String corpus) {
+   /* public static void printMatchingLines(final String searchWord, final String corpus) {
         int lineCount = 1;
         String printedLine;
         String word;
@@ -88,8 +88,26 @@ public class FindLine {
         }
         geneLine.close();
         // geneWord.close();
-    }
+    }*/
 
+    public static void printMatchingLines(final String searchWord, final String corpus) {
+        String[] text = corpus.split("\n");
+        for (int i = 0; i < text.length; i++) {
+            String line = text[i];
+            String tempLine = line.replaceAll("[.,!?;()-]", " ");
+            String[] words = tempLine.split(" ");
+            boolean printable = false;
+            for (String aWord: words) {
+                if (aWord.equalsIgnoreCase(searchWord)) {
+                    printable = true;
+                    break;
+                }
+            }
+            if (printable) {
+                System.out.println(i + 1 + ": " + line);
+            }
+        }
+    }
     /**********************************************************************************************
      * You do not need to modify code below this comment.
      **********************************************************************************************/

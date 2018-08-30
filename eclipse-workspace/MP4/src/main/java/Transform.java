@@ -79,31 +79,6 @@ public class Transform {
         return shiftedImage;
     }
 
-       /* int startColumn = isLeftshift * amount;
-        int endColumn = originalImage[0].length - isRightshift * amount;
-        int startRow = isUpshift * amount;
-        int endRow = originalImage.length - isDownshift * amount;
-        int row = 0, column = 0;
-        if (isLeftshift == 1) {
-            row = 0;
-            column = 0;
-        } else if (isRightshift == 1) {
-            row = 0;
-            column = amount;
-        } else if (isDownshift == 1) {
-            row = amount;
-            column = 0;
-        } else if (isUpshift == 1) {
-            row = 0;
-            column = 0;
-        } else {
-            ;
-        }
-        for (int i = startRow, realRow = row; i < endRow; i++, realRow++) {
-            for (int j = startColumn, realColumn = column; j < endColumn; j++, realColumn++) {
-                shiftedImage[realRow][realColumn] = originalImage[i][j];
-            }
-        }*/
 
     /**
      * Shift the image left by the specified amount.
@@ -633,12 +608,16 @@ public class Transform {
 
         int originY = (int) oriY;
         for (int nx = 0; nx < finalImage.length; nx++, oriX++) {
-            oriY = originY;
+            //oriY = originY;
             for (int ny = 0; ny < finalImage[0].length; ny++, oriY++) {
                 finalImage[nx][ny] = expandImage[(int) oriX][(int) oriY];
             }
         }
         return finalImage;
+
+
+
+
     }
     /**
      * Shrink in the vertical axis around the image center.
@@ -710,11 +689,14 @@ public class Transform {
      */
     public static int[][] greenScreen(final int[][] originalImage) {
         int[][] changedColorImage = new int[originalImage.length][originalImage[0].length];
-        final int green = 0xff00ff00;
         for (int x = 0; x < originalImage.length; x++) {
             for (int y = 0; y < originalImage[0].length; y++) {
                 int pixel = originalImage[x][y];
-                if (pixel == green) {
+
+
+                int green = (pixel >> 8) & 0xff;
+
+                if (green > 127.5) {
                     pixel = FILL_VALUE;
                 }
                 changedColorImage[x][y] = pixel;
