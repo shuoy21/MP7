@@ -26,7 +26,7 @@
     "mdiff": "^1.2.1",
     "path": "^0.12.7",
     "random-case": "^1.0.0",
-    "randomatic": "^2.0.0",
+    "randomatic": "^3.1.1",
     "randomstring": "^1.1.5",
     "replace-ext": "^1.0.0"
   }
